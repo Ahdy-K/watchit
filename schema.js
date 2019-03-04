@@ -25,7 +25,7 @@ const MovieType = new GraphQLObjectType({
         language: { type: GraphQLString },
         overview: {type: GraphQLString },
         release_date: {type: GraphQLString },
-        popularity: { type: GraphQLInt },
+        vote_average: { type: GraphQLString },
         poster_path: { type: GraphQLString },
         genres: { type: new GraphQLList(GenreType) }
 
@@ -34,7 +34,7 @@ const MovieType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQuery',
     fields:()=>({
-        movie: {
+        moviesearch: {
             type: new GraphQLList(MovieType),
             args: {
                 title: {type: GraphQLString}
@@ -44,6 +44,15 @@ const RootQuery = new GraphQLObjectType({
                 .then(res => res.data.results)
             }
         },
+        movie: {
+            type: MovieType,
+            args: {
+                id: {type: GraphQLID}
+            },
+            resolve(parentValue, args){
+                return axios.get(`https://api.themoviedb.org/3/movie/${args.id}?api_key=${API_KEY}&language=en-US`)
+                .then(res => res.data)
+        }},
         movies:{
             type: new GraphQLList(MovieType),
             resolve(parentValue,args){
