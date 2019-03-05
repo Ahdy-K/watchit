@@ -22,3 +22,7 @@ users will be allowed to comment any movie to share thier toughts about it
 
 ## Technologies:
 to build this little app i used Node and graphQL in the backend, and React, Apollo and bootstrap (bootswatch theme) for the front end.
+
+## Check it:
+App is deployed on Heroku
+https://frozen-inlet-17394.herokuapp.com/
